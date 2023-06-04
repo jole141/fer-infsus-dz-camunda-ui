@@ -39,15 +39,9 @@ const FormContainer = styled.form`
   }
 `;
 
-const Separator = styled.div`
-  width: 100%;
-  height: 1px;
-  background-color: #ccc;
-  margin: 8px 0;
-`;
-
 const TASK_1 = "Provjera količine alata";
 const TASK_2 = "Promijeni status projekta";
+const CAMUNDA_URL = "http://localhost:8080";
 
 function App() {
   const [alatID, setAlatID] = useState(1);
@@ -61,7 +55,7 @@ function App() {
       headers: { "Content-Type": "application/json" },
     };
     const tasks = await fetch(
-      "http://localhost:8080/engine-rest/task",
+      `${CAMUNDA_URL}/engine-rest/task`,
       requestOptions
     );
     const tasksJson = await tasks.json();
@@ -96,7 +90,7 @@ function App() {
 
     try {
       await fetch(
-        `http://localhost:8080/engine-rest/task/${taskID}/complete`,
+        `${CAMUNDA_URL}/engine-rest/task/${taskID}/complete`,
         requestOptions
       );
     } catch (e) {
@@ -115,7 +109,7 @@ function App() {
       }),
     };
 
-    fetch("http://localhost:8080/engine-rest/message", requestOptions)
+    fetch(`${CAMUNDA_URL}/engine-rest/message`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -142,7 +136,7 @@ function App() {
 
     try {
       await fetch(
-        `http://localhost:8080/engine-rest/task/${taskID}/complete`,
+        `${CAMUNDA_URL}/engine-rest/task/${taskID}/complete`,
         requestOptions
       );
     } catch (e) {
