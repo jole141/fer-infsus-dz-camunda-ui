@@ -98,8 +98,10 @@ function App() {
     }
   };
 
-  const completeTask2 = (e) => {
+  const completeTask2 = async (e) => {
     e.preventDefault();
+
+    console.log(`${CAMUNDA_URL}/engine-rest/message`);
 
     const requestOptions = {
       method: "POST",
@@ -109,14 +111,11 @@ function App() {
       }),
     };
 
-    fetch(`${CAMUNDA_URL}/engine-rest/message`, requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    try {
+      await fetch(`${CAMUNDA_URL}/engine-rest/message`, requestOptions);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const completeTask3 = async (e) => {
